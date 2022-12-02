@@ -47,6 +47,8 @@ class LTI_Service_Connector {
 
         // Make request to get auth token
         $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_URL, $this->registration->get_auth_token_url());
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($auth_request));
@@ -61,6 +63,8 @@ class LTI_Service_Connector {
 
     public function make_service_request($scopes, $method, $url, $body = null, $content_type = 'application/json', $accept = 'application/json') {
         $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         $headers = [
             'Authorization: Bearer ' . $this->get_access_token($scopes),
             'Accept:' . $accept,
